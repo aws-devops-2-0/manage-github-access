@@ -32,6 +32,7 @@ add_collaborator() {
 	PERM="${2:-push}" #Default to write/push permissions
 	echo "Adding user '$USER' to $OWNER/$REPO with '$PERM' permission..."
 	gh api repos/$OWNER/$REPO/collaborators/$USER --method PUT -f permission="$PERM"
+}
 
 #Main Logic
 
