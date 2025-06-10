@@ -18,6 +18,7 @@
 #Script owner (Github login if authenticated, else system user)
 SCRIPT_OWNER="$(gh api user --jq .login 2>/dev/null || echo $USER)"
 
+echo "Script Owner: $SCRIPT_OWNER"
 
 # Usage function
 usage(){
