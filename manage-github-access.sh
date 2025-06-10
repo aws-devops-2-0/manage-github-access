@@ -19,10 +19,11 @@ REPO="$2"
 
 # List collaborators
 list_collaborators() {
-	echo "Collaborators for $OWNER/$REPO:"
-	gh api repos/$OWNER/$REPO/collaborators | jq -r '(["Username","Type","Permission"], ["________","----","________"] ),(.[] | [.login, .type, .permissions | to_entries[] | select(.value == true) | .key])
-	| @tsv' | \ 
-        column -t
+    echo "Collaborators for $OWNER/$REPO:"
+    gh api repos/$OWNER/$REPO/collaborators | jq -r \
+    '(["Username","Type","Permissions"], ["--------","----","-----------"]),
+      (.[] | [.login, .type, ( .permissions | to_entries | map(select(.value == true) | .key) | join(",") )]) | @tsv' \
+    | column -t
 }
 
 #Add collaborator 
